@@ -11,10 +11,24 @@ class BooksController < ApplicationController
     redirect_to books_path    #変更要）ユーザーページに戻る
   end
 
-  def edit
-  end
-
   def show
+    @book =Book.find(params[:id])
+  end
+  
+  def edit
+    @book = Book.find(params[:id])
+  end
+  
+  def update
+    @book = Book.find(params[:id])
+    @book.update(book_params)
+    redirect_to books_path
+  end
+  
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
   
   private
