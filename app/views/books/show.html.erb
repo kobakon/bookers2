@@ -1,20 +1,40 @@
-<!--User info-->
-
-
-
-<!--New book-->
-
-
-
-<h2>Book detail</h2>
-<div>
-  <p><%= image_tag 'no_image.jpg' %></p>  <!--ユーザ画像-->
-  <p><%= @book.user.name %></p>           <!--ユーザネーム-->
-  <p><%= @book.title %></p>         　    <!--タイトル-->
-  <p><%= @book.body %></p>                <!--感想-->
-  
-  <%= link_to 'Edit', edit_book_path(@book.id) %>
-  <% if @book.user == current_user %>
-    <%= link_to 'Destroy', book_path, method: :delete %>
+<div class="container">
+  <!--バリデーション-->
+  <% if @book.errors.any? %>
+    <%= @book.errors.count %>error prohibited this obj from being saved:
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/userinfo', user: @user, book: @book_new %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@book.user.id) do %>
+                <%= image_tag @book.user.get_profile_image(100,100) %>
+              <% end %>
+                <p><%= link_to @book.user.name, user_path(@book.user.id) %></p>
+            </td>
+
+            <td><%= @book.title %></td>
+            <td><%= @book.body %></td>
+            <% if @book.user == current_user %>
+              <td><%= link_to 'Edit', edit_book_path(@book.id), class:"btn btn-success btn-sm" %></td>
+              <td><%= link_to 'Destroy', book_path, method: :delete, class:"btn btn-danger btn-sm" %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
