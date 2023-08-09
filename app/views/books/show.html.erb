@@ -29,6 +29,7 @@
             <td><%= @book.title %></td>
             <td><%= @book.body %></td>
             <td><%= render 'favorites/btn', book: @book %></td>
+            <td>コメント数<%= book.book_comment.count %></td>
             <% if @book.user == current_user %>
               <td><%= link_to 'Edit', edit_book_path(@book.id), class:"btn btn-success btn-sm" %></td>
               <td><%= link_to 'Destroy', book_path, method: :delete, class:"btn btn-danger btn-sm" %></td>
@@ -36,6 +37,10 @@
           </tr>
         </tbody>
       </table>
+      <!--↓↓↓コメント↓↓↓-->
+      <div>
+        
+      </div>
     </div>
   </div>
 </div>
